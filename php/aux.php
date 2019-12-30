@@ -11,10 +11,10 @@ function navbar()
     <header>
         <ul id="nav">
             <li><a href="/">El Encuentro</a></li>
-            <li><a href="">MiniJuego</a></li>
-            <li><a href="">Converter</a></li>
-            <li><a href="">Calculadora</a></li>
-            <li><a href="">Chat</a></li>
+            <li><a href="../life-circle/html">MiniJuego</a></li>
+            <li><a href="../converter">Converter</a></li>
+            <li><a href="../calculadora/html">Calculadora</a></li>
+            <li><a href="../chat/html">Chat</a></li>
             <li id="spec"><a href="/php/login/login.php">Login</a></li>
         </ul>
     </header>
