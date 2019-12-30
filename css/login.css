@@ -1,0 +1,67 @@
+main {
+    margin: 13% 30% 13% 30%;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 1em;
+    padding-right: 1em;
+    background-color: #fff;
+}
+
+#form {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#form h2 {
+    text-align: center;
+}
+
+#form input{
+    width: 97%;
+}
+
+input[type=text],input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+#sub{
+    margin-top: 0.5em;
+    width: 100%;
+    background-color: #f4511e;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+#sub span{
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+#sub span:after{
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+#sub:hover span{
+    padding-right: 25px;
+}
+
+#sub:hover span:after{
+    opacity: 1;
+    right: 0;
+}

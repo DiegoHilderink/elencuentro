@@ -1,0 +1,51 @@
+body{
+    background: url(../img/backgorund.png) no-repeat;
+}
+
+#nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#nav li {
+    float: left;
+}
+
+#nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#nav li a:hover {
+    background-color: #111;
+}
+
+#feet{
+    position: fixed;
+    float: left;
+    width: 97.5%;
+    bottom: 0em;
+    text-align: left;
+
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 16px;
+    font-style: oblique;
+    background-color: #888;
+}
+
+#fecha{
+     float: right;
+}
+
+#nav #spec{
+    float: right;
+}
