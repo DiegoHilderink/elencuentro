@@ -30,10 +30,11 @@ require __DIR__ . "/aux.php";
         ],
     ];
     $pdo = conectar();
+    $errores = [];
     
     ?>
     <?= navbar() ?>
-    <?= loginForm() ?>
+    <?= loginForm($errores) ?>
     <?= feet() ?>
 </body>
 

@@ -48,3 +48,17 @@ body{
      float: right;
      margin-right: 1%;
 }
+
+main .warning{
+    margin-top: 0.5%;
+    padding: 0.1em ;
+    text-align: center;
+    background-color: rgb(253, 201, 87);
+}
+
+main .error{
+    margin-top: 0.5%;
+    padding: 0.1em ;
+    text-align: center;
+    background-color: rgb(245, 31, 31);
+}

@@ -1,13 +1,10 @@
-main {
+#form {
     margin: 13% 30% 13% 30%;
     border: 1px solid #fff;
     border-radius: 4px;
     padding: 1em;
     padding-right: 1em;
     background-color: #fff;
-}
-
-#form {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

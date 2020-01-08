@@ -1,9 +1,10 @@
 <?php
 
-function loginForm()
+function loginForm($errores)
 { ?>
-    <main id="form">
-        <section>
+    <main>
+        <?= mostrarErrores($errores) ?>
+        <section id="form">
             <h2>Login</h2>
 
             <form action="../../index.php" method="post">

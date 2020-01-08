@@ -32,32 +32,28 @@ require __DIR__ . "/aux.php";
     ];
 
     $pdo = conectar();
-        if(es_GET()){
-            if(isset($_GET['id'])){
+        if (es_GET()) {
+            if (isset($_GET['id'])) {
                 $id = trim($_GET['id']);
             } else {
-                $errores[] = 'Nota no indicada';
+                $errores += ['Nota no indicada' => 'warning'];
             }
         } else {
-            if(es_POST()){
-                if(isset($_POST['id'])){
+            if (es_POST()) {
+                if (isset($_POST['id'])) {
                     $id = trim($_POST['id']);
                     borrar($pdo, $id, $errores);
                 } else {
-                    $errores[]='Ha ocurrido un error';
+                    $errores += ['Esa categoria no existe.' => 'error'];
                 }
             }
         }
 
-        if(!isset($errores)){
-            var_dump($errores);
-        }
-
+        
+    navbar();
     $errores = [];
     $args = comprobarParametros(PAR, $errores);
-
-    navbar();
-    deleteMain($id);
+    deleteMain($id, $errores);
     feet();
     ?>
 </body>

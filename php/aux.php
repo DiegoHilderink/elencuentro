@@ -5,7 +5,7 @@ const TIPO_PASSWD = 2;
 
 function linkcss()
 {
-?>
+    ?>
     <link rel='stylesheet' href='../../css/style.css'>
     <link rel='stylesheet' href='../../css/index.css'>
     <link rel='stylesheet' href='../../css/form.css'>
@@ -15,7 +15,7 @@ function linkcss()
 
 function navbar()
 {
-?>
+    ?>
     <header>
         <ul id="nav">
             <li><a href="/">El Encuentro</a></li>
@@ -33,13 +33,13 @@ function navbar()
 
 function indexMain($sent)
 {
-?>
+    ?>
     <main>
         <div class="card">
             <?php foreach ($sent as $k => $v) : ?>
                 <div>
-                    <h4><b><?= $v['titulo'] ?></b></h4>
                     <a href="php/borrar.php?id=<?= $v['id'] ?>" class="button">x</a>
+                    <h4><b><?= $v['titulo'] ?></b></h4>
                     <p id='interior'><?= $v['cuerpo'] ?>...</p>
                     <p class="cardfoot"><small><?= $v['fecha'] ?></small></p>
                 </div>
@@ -55,10 +55,11 @@ function indexMain($sent)
 <?php
 }
 
-function insertMain($par)
+function insertMain($par, $errores)
 { ?>
-    <main id="form">
-        <section>
+    <main >
+        <?= mostrarErrores($errores); ?>
+        <section id="form">
             <h2>Crear nueva Nota</h2>
 
             <form action="" method="post">
@@ -73,10 +74,11 @@ function insertMain($par)
 <?php
 }
 
-function deleteMain($id)
+function deleteMain($id, $errores)
 {
-?>
-    <main> 
+    ?>
+    <main>
+    <?= mostrarErrores($errores); ?> 
         <div id='borrar'>
             <h2>¿Esta seguro de que desea borrar esta nota?</h2>
             <form action="" method="post">
@@ -121,7 +123,7 @@ function comprobarParametros($par, &$errores)
         ) {
             $res = array_map('trim', $peticion);
         } else {
-            $errores[] = 'Los parámetros recibidos no son los correctos.';
+            $errores += ['Los parametros recibidos son erroneros' => 'error'];
         }
     }
 
@@ -139,34 +141,34 @@ function comprobarValoresInsertar(&$args, $pdo, &$errores)
 
     if (isset($args['titulo'])) {
         if ($titulo === '') {
-            $errores['titulo'] = 'El titulo es obligatorio.';
+            $errores += ['El titulo es obligatorio.' => 'warning'];
         } else {
             $sent = $pdo->prepare('SELECT COUNT(*)
                                 FROM notas
                             WHERE titulo = :titulo');
             $sent->execute(['titulo' => $titulo]);
             if ($sent->fetchColumn() > 0) {
-                $errores['titulo'] = 'Ese titulo ya existe.';
+                $errores += ['El título ya existe.' => 'warning'];
             }
         }
     }
 
     if (isset($args['cuerpo'])) {
         if ($cuerpo === '') {
-            $errores['cuerpo'] = 'La cabecera es obligatoria.';
+            $errores += ['El cuerpo es obligatorio' => 'warning'];
         }
     }
 
     if (isset($args['categorias'])) {
         if ($categorias === '') {
-            $errores['categorias'] = 'La categoria es obligatoria.';
+            $errores += ['La categoria es obligatoria.' => 'warning'];
         } else {
             $sent = $pdo->prepare('SELECT COUNT(*)
                                 FROM categorias
                             WHERE nombre = :categorias');
             $sent->execute(['categorias' => $categorias]);
             if ($sent->fetchColumn() <= 0) {
-                $errores['categorias'] = 'Esa categoria no existe.';
+                $errores += ['Esa categoria no existe.' => 'warning'];
             }
         }
     }
@@ -176,11 +178,24 @@ function borrar($pdo, $id, &$errores)
 {
     $sql = $pdo->prepare('DELETE FROM notas WHERE id = :id');
     $sql->execute(['id' => $id]);
-    if($sql->rowCount() !== 1){
-        $errores[] = 'Ha ocurrido un error';
+    if ($sql->rowCount() !== 1) {
+        $errores += ['La nota no se ha borrado' => 'warning'];
     }
 
     header('Location: /index.php');
+}
+
+function mostrarErrores($errores)
+{
+    if (!empty($errores)) {
+        foreach ($errores as $k => $v):
+            ?>
+            <div class='<?= $v ?>'>
+                    <h4><?= $k ?></h4>
+                </div>
+                <?php
+    endforeach;
+    }
 }
 
 function conectar()

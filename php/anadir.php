@@ -28,7 +28,8 @@ require __DIR__ . "/aux.php";
             'tipo' => TIPO_CADENA,
         ],
     ];
-
+    
+    navbar();
     $pdo = conectar();
     $errores = [];
     
@@ -39,10 +40,7 @@ require __DIR__ . "/aux.php";
         $sent->execute($args);
         header('Location: /index.php');
     }
-
-
-    navbar();
-    insertMain(PAR);
+    insertMain(PAR, $errores);
     feet() ?>
 </body>
 
