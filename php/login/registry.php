@@ -1,8 +1,8 @@
-<?php
-session_start();
-require "../aux.php";
-require __DIR__ . "/aux.php";
+<?php session_start();
+require './aux.php';
+require '../aux.php'
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,11 +30,12 @@ require __DIR__ . "/aux.php";
         ],
     ];
     $pdo = conectar();
-    
     ?>
+
     <?= navbar() ?>
-    <?= loginForm() ?>
+    <?= registry() ?>
     <?= feet() ?>
+    <script src="./elencuentro/js/login.js"></script>
 </body>
 
 </html>

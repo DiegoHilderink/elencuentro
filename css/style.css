@@ -27,15 +27,17 @@ body{
     background-color: #111;
 }
 
+#nav .spec{
+    float: right;
+}
+
 #feet{
-    position: fixed;
     float: left;
-    width: 97.5%;
+    width: 99.5%;
     bottom: 0em;
     text-align: left;
 
     padding-left: 0.5em;
-    padding-right: 0.5em;
     margin-bottom: 0.5em;
     font-size: 16px;
     font-style: oblique;
@@ -44,8 +46,5 @@ body{
 
 #fecha{
      float: right;
-}
-
-#nav #spec{
-    float: right;
+     margin-right: 1%;
 }
