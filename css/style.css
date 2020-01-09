@@ -34,6 +34,7 @@ body{
 
 #feet{
     float: left;
+    position: fixed;
     width: 99.5%;
     bottom: 0em;
     text-align: left;

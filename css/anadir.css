@@ -1,0 +1,42 @@
+#form{
+    background-color: royalblue;
+    border-radius: 4px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#form h2{
+    color: #fff;
+    text-align: center;
+    padding-top: 1em;
+}
+
+#form form{
+    background-color: #fff;
+    padding: 1em;
+}
+
+form label{
+    padding-left: 0.3em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form input{
+    width: 97%;
+    margin:0.5em 0.5em;
+    padding: 1em;
+    background-color: #ddd;
+    border: none;
+    border-radius: 4px;
+}
+
+form button{
+    width: 99%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0.5em;
+    padding: 1em;
+    color: white;
+    background-color: royalblue;
+    border: none;
+    border-radius: 4px;
+}

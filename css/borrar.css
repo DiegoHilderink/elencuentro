@@ -9,9 +9,9 @@
 #nota{
     background-color: royalblue;
     border-radius: 4px;
-    padding-top: 0.5em;
 }
 #nota h2{
+    padding-top: 1em;
     color: #fff;
 }
 
@@ -20,6 +20,7 @@
 }
 
 #nota div{
+    padding-top: 0.5em;
     background-color: #fff;
     margin: 0;
     padding: 0.5em; 
@@ -29,9 +30,12 @@
 }
 
 #borrar{
-    padding-top: 1em;
     background-color: #ed4f32;
     color: #fff;
+}
+
+#borrar h2{
+    padding-top: 1em;
 }
 
 #borrar form{

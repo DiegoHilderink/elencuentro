@@ -13,6 +13,7 @@ CREATE TABLE notas
         id      bigserial       PRIMARY KEY
     ,   titulo  VARCHAR(255)    UNIQUE NOT NULL
     ,   header  text            UNIQUE NOT NULL
+    ,   cuerpo  text            NOT NULL
     ,   cat_id  bigint          NOT NULL REFERENCES categorias (id)
                                 ON DELETE NO ACTION ON UPDATE CASCADE
     ,   fecha   varchar(20)     NOT NULL  
@@ -34,10 +35,10 @@ VALUES  ('arte')
     ,   ('peliculas')
 ;
 
-INSERT INTO notas(titulo, header, cat_id, fecha)
-VALUES  ('Trilogía trajano', 'Este post es sobre la trilogía de trajano escrito por Santiago Posteguillo', 4, '20 January 2019')
-    ,   ('Las obras de mi madre', 'Este post va sobre obras creadas por mi madre', 1, '20 February 2018')
-    ,   ('Saga de Star Wars', 'La saga acaba con la novena parte de star wars', 5, '5 January 2020')
+INSERT INTO notas(titulo, header, cuerpo, cat_id, fecha)
+VALUES  ('Trilogía trajano', 'Este post es sobre la trilogía de trajano escrito por Santiago Posteguillo', 'Este post es sobre la trilogía de trajano escrito por Santiago Posteguillo', 4, '20 January 2019')
+    ,   ('Las obras de mi madre', 'Este post va sobre obras creadas por mi madre', 'Este post es sobre la trilogía de trajano escrito por Santiago Posteguillo', 1, '20 February 2018')
+    ,   ('Saga de Star Wars', 'La saga acaba con la novena parte de star wars', 'Este post es sobre la trilogía de trajano escrito por Santiago Posteguillo', 5, '5 January 2020')
 ;
 
 INSERT INTO usuarios (nombre, passwd, mail)

@@ -39,15 +39,16 @@ function indexMain($sent)
             <?php foreach ($sent as $k => $v) : ?>
                 <div>
                     <a href="php/borrar.php?id=<?= $v['id'] ?>" class="button">x</a>
+                    <a href="php/modificar.php?id=<?= $v['id'] ?>" class="button" id='mod'>⚙️</a>
                     <h4><b><?= $v['titulo'] ?></b></h4>
-                    <p id='interior'><?= $v['header'] ?>...</p>
+                    <p class='interior'><?= $v['header'] ?>...</p>
                     <p class="cardfoot"><small><?= $v['fecha'] ?></small></p>
                 </div>
             <?php endforeach ?>
 
             <div id='anadir' onclick="document.location.href='php/anadir.php'">
                 <h4><b>Nueva Nota</b></h4>
-                <p id='img'>+</p>
+                <p id='img' class="interior">+</p>
                 <p class="cardfoot"><small><?= date('j F Y') ?></small></p>
             </div>
         </div>
@@ -55,7 +56,7 @@ function indexMain($sent)
 <?php
 }
 
-function insertMain($par, $errores)
+function insertMain($errores)
 { ?>
     <main >
         <?= mostrarErrores($errores); ?>
@@ -63,10 +64,17 @@ function insertMain($par, $errores)
             <h2>Crear nueva Nota</h2>
 
             <form action="" method="post">
-                <?php foreach ($par as $k => $v) : ?>
-                    <label for=<?= $k ?>><?= ucwords($k) ?></label>
-                    <input type="text" id=<?= $k ?> name=<?= $k ?> placeholder=<?= ucwords($k) ?>>
-                <?php endforeach ?>
+                    <label for='titulo'>Titulo</label>
+                    <input type="text" id='titulo' name='titulo' placeholder='Titulo'>
+
+                    <label for='header'>Cabecera</label>
+                    <input type="text" id='header' name='header' placeholder='Cabecera'>
+                    
+                    <label for='cuerpo'>Cuerpo</label>
+                    <input type="textarea" id='cuerpo' name='cuerpo' placeholder='Cuerpo'>
+                    
+                    <label for='categorias'>Categoria</label>
+                    <input type="text" id='categorias' name='categorias' placeholder="Categoria">
                 <button id="sub" type="submit"><span>Ingress</span></button>
             </form>
         </section>
@@ -78,20 +86,9 @@ function deleteMain($id, $errores, $pdo)
 {
     $sql = $pdo->prepare('SELECT * FROM notas n JOIN categorias c ON n.cat_id = c.id  WHERE n.id = :id;');
     $sql->execute(['id'=>$id]);
-    $sql=$sql->fetch();
-    ?>
+    $sql=$sql->fetch(); ?>
     <main>
     <?= mostrarErrores($errores); ?> 
-        <div id='nota'>
-            <h2><?=$sql['titulo']?></h2>
-            <div>
-                <label for="header">Cabecera</label>
-                <p id='header'><?=$sql['header']?>...</p>
-                <label for="cat">Categoria</label>
-                <p id='cat'><?=ucwords($sql['nombre'])?></p>
-            </div>
-        </div>
-
         <div id='borrar'>
             <h2>¿Esta seguro de que desea borrar esta nota?</h2>
             <form action="" method="post">
@@ -99,6 +96,18 @@ function deleteMain($id, $errores, $pdo)
                 <button type="submit">Si</button>
                 <a href="/index.php">No</a>
             </form>
+        </div>    
+    
+        <div id='nota'>
+            <h2><?=$sql['titulo']?></h2>
+            <div>
+                <label for="header">Cabecera</label>
+                <p id='header'><?=$sql['header']?>...</p>
+                <label for="cuerpo">Cuerpo</label>
+                <p id='cuerpo'><?=$sql['cuerpo']?>...</p>
+                <label for="cat">Categoria</label>
+                <p id='cat'><?=ucwords($sql['nombre'])?></p>
+            </div>
         </div>
     </main>
 <?php
@@ -141,6 +150,7 @@ function comprobarParametros($par, &$errores)
     }
 
     $res +=  ['fecha' => date('j F Y')];
+    var_dump($res);
     return $res;
 }
 
@@ -169,6 +179,20 @@ function comprobarValoresInsertar(&$args, $pdo, &$errores)
     if (isset($args['header'])) {
         if ($header === '') {
             $errores += ['El header es obligatorio' => 'warning'];
+        } else {
+            $sent = $pdo->prepare('SELECT COUNT(*)
+                                     FROM notas
+                                    WHERE header = :header');
+            $sent->execute(['header' => $header]);
+            if ($sent->fetchColumn() > 0) {
+                $errores += ['La cabecera ya existe.' => 'warning'];
+            }
+        }
+    }
+
+    if (isset($args['cuerpo'])) {
+        if ($header === '') {
+            $errores += ['El cuerpo es obligatorio' => 'warning'];
         }
     }
 

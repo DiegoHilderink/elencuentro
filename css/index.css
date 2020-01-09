@@ -2,7 +2,7 @@
     float: left;
     border-radius: 4px;
     width: 20%;
-    background-color: rgb(0, 94, 255);
+    background-color: royalblue;
     margin: 2%;
     box-shadow: 2px 2px 2px #666;
     padding-left: 1%;
@@ -28,7 +28,11 @@
     text-decoration: none;
 }
 
-#interior{
+.card #mod{
+    margin-top: 7.2%;
+}
+
+.interior{
     height: 60px;
     background-color: #fff;
     margin: -2% -2%;
