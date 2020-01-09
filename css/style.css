@@ -8,6 +8,7 @@ body{
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    border-radius: 4px;
 }
 
 #nav li {
@@ -36,12 +37,14 @@ body{
     width: 99.5%;
     bottom: 0em;
     text-align: left;
+    border-radius: 4px;
 
     padding-left: 0.5em;
     margin-bottom: 0.5em;
     font-size: 16px;
     font-style: oblique;
-    background-color: #888;
+    background-color: #333;
+    color: #fff;
 }
 
 #fecha{

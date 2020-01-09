@@ -16,21 +16,6 @@ require __DIR__ . "/aux.php";
 
 <body>
     <?php
-    const PAR = [
-        'titulo' => [
-            'def' => '',
-            'tipo' => TIPO_CADENA,
-        ],
-        'cuerpo' => [
-            'def' => '',
-            'tipo' => TIPO_CADENA,
-        ],
-        'categorias' => [
-            'def' => '',
-            'tipo' => TIPO_CADENA,
-        ],
-    ];
-
     $pdo = conectar();
         if (es_GET()) {
             if (isset($_GET['id'])) {
@@ -52,8 +37,7 @@ require __DIR__ . "/aux.php";
         
     navbar();
     $errores = [];
-    $args = comprobarParametros(PAR, $errores);
-    deleteMain($id, $errores);
+    deleteMain($id, $errores, $pdo);
     feet();
     ?>
 </body>

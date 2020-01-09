@@ -40,7 +40,7 @@ function indexMain($sent)
                 <div>
                     <a href="php/borrar.php?id=<?= $v['id'] ?>" class="button">x</a>
                     <h4><b><?= $v['titulo'] ?></b></h4>
-                    <p id='interior'><?= $v['cuerpo'] ?>...</p>
+                    <p id='interior'><?= $v['header'] ?>...</p>
                     <p class="cardfoot"><small><?= $v['fecha'] ?></small></p>
                 </div>
             <?php endforeach ?>
@@ -74,11 +74,24 @@ function insertMain($par, $errores)
 <?php
 }
 
-function deleteMain($id, $errores)
+function deleteMain($id, $errores, $pdo)
 {
+    $sql = $pdo->prepare('SELECT * FROM notas n JOIN categorias c ON n.cat_id = c.id  WHERE n.id = :id;');
+    $sql->execute(['id'=>$id]);
+    $sql=$sql->fetch();
     ?>
     <main>
     <?= mostrarErrores($errores); ?> 
+        <div id='nota'>
+            <h2><?=$sql['titulo']?></h2>
+            <div>
+                <label for="header">Cabecera</label>
+                <p id='header'><?=$sql['header']?>...</p>
+                <label for="cat">Categoria</label>
+                <p id='cat'><?=ucwords($sql['nombre'])?></p>
+            </div>
+        </div>
+
         <div id='borrar'>
             <h2>¿Esta seguro de que desea borrar esta nota?</h2>
             <form action="" method="post">
@@ -153,9 +166,9 @@ function comprobarValoresInsertar(&$args, $pdo, &$errores)
         }
     }
 
-    if (isset($args['cuerpo'])) {
-        if ($cuerpo === '') {
-            $errores += ['El cuerpo es obligatorio' => 'warning'];
+    if (isset($args['header'])) {
+        if ($header === '') {
+            $errores += ['El header es obligatorio' => 'warning'];
         }
     }
 
