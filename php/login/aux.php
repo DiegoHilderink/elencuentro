@@ -20,6 +20,29 @@ function loginForm($errores)
 <?php
 }
 
+function comprobarParametrosLogin($par, $errores){
+    $res = [];
+    foreach ($par as $k => $v) {
+        if (isset($v['def'])) {
+            $res[$k] = $v['def'];
+        }
+    }
+
+    $peticion = peticion();
+    if ((es_GET() && !empty($peticion)) || es_POST()) {
+        if ((es_GET() || es_POST() && !empty($peticion))
+            && empty(array_diff_key($res, $peticion))
+            && empty(array_diff_key($peticion, $res))
+        ) {
+            $res = array_map('trim', $peticion);
+        } else {
+            $errores += ['Los parametros recibidos son erroneros' => 'error'];
+        }
+    }
+
+    return $res;
+}
+
 function registry(){
     ?>
     <main id="form">

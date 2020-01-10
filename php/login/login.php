@@ -31,6 +31,8 @@ require __DIR__ . "/aux.php";
     ];
     $pdo = conectar();
     $errores = [];
+    $args = comprobarParametros(PAR, $errores);
+    
     
     ?>
     <?= navbar() ?>
