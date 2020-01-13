@@ -21,8 +21,10 @@ require __DIR__ . "/php/aux.php";
         $sent = ejecutarConsulta($sql, $pdo);
     ?>
     <?= navbar() ?>
+    <main>
     <?= indexMain($sent) ?>
     <?= lista($pdo) ?>
+    </main>
     <?= feet() ?>
 </body>
 

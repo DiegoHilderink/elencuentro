@@ -34,7 +34,6 @@ function navbar()
 function indexMain($sent)
 {
     ?>
-    <main>
         <div class="card">
             <?php foreach ($sent as $k => $v) : ?>
                 <div>
@@ -52,7 +51,6 @@ function indexMain($sent)
                 <p class="cardfoot"><small><?= date('j F Y') ?></small></p>
             </div>
         </div>
-    </main>
 <?php
 }
 
