@@ -1,3 +1,7 @@
+.card {
+    width: 70%;
+}
+
 .card div {
     float: left;
     border-radius: 4px;
@@ -9,9 +13,9 @@
 }
 
 .card h4,.cardfoot{
+    height: 30px;
     color: #fff;
 }
-
 
 .card h4{
     padding-top: 1%;
@@ -33,7 +37,7 @@
 }
 
 .interior{
-    height: 60px;
+    height: 80px;
     background-color: #fff;
     margin: -2% -2%;
     margin-right: 0%;

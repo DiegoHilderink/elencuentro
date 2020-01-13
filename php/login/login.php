@@ -29,10 +29,14 @@ require __DIR__ . "/aux.php";
             'etiqueta' => 'Contraseña'
         ],
     ];
-    $pdo = conectar();
     $errores = [];
-    $args = comprobarParametros(PAR, $errores);
+    $args = comprobarParametrosLogin(PAR, $errores);
+    $pdo = conectar();
     
+    if(es_POST() && empty($errores)){
+
+    }
+
     
     ?>
     <?= navbar() ?>

@@ -22,6 +22,7 @@ require __DIR__ . "/php/aux.php";
     ?>
     <?= navbar() ?>
     <?= indexMain($sent) ?>
+    <?= lista($pdo) ?>
     <?= feet() ?>
 </body>
 

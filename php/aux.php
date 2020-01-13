@@ -82,6 +82,23 @@ function insertMain($errores)
 <?php
 }
 
+
+function lista($pdo){
+    $par = generateSql($pdo);
+    ?><div id='lista'>
+            <ul>
+        <?php foreach($par as $k => $v): ?>
+                <li><a href="/php/modificar.php?$id=<?=$v['id']?>"><?=$v['titulo']?></a><label id='votos'>10</label></li>
+        <?php endforeach ?>
+            </ul>
+    </div><?php
+}
+
+function generateSql($pdo){
+    $sql = 'SELECT * FROM notas;';
+    return $par = ejecutarConsulta($sql,  $pdo);
+}
+
 function deleteMain($id, $errores, $pdo)
 {
     $sql = $pdo->prepare('SELECT * FROM notas n JOIN categorias c ON n.cat_id = c.id  WHERE n.id = :id;');
