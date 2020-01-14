@@ -23,12 +23,20 @@ function navbar()
             <li><a href="">Converter</a></li>
             <li><a href="">Calculadora</a></li>
             <li><a href="">Chat</a></li>
-            <li class="spec"><a href="/php/login/login.php">Login</a></li>
-            <li class="spec"><a href="/php/login/registry.php">Registry</a></li>
-
+            <?php if(!logueado()): ?> 
+                <li class="spec"><a href="/php/login/login.php">Login</a></li>
+                <li class="spec"><a href="/php/login/registry.php">Registry</a></li>
+            <?php else: ?>
+                <li class="spec"><a href="/php/login/logout.pbp">Logout</a></li>
+            <?php endif ?>
         </ul>
     </header>
 <?php
+}
+
+function logueado()
+{
+    return isset($_SESSION['login']) ? $_SESSION['login'] : false;
 }
 
 function indexMain($sent)
@@ -39,8 +47,8 @@ function indexMain($sent)
                 <div>
                     <a href="php/borrar.php?id=<?= $v['id'] ?>" class="button">x</a>
                     <a href="php/modificar.php?id=<?= $v['id'] ?>" class="button" id='mod'>⚙️</a>
-                    <h4><b><?= $v['titulo'] ?></b></h4>
-                    <p class='interior'><?= $v['header'] ?>...</p>
+                    <h4><b><?=maxLentgh($v['titulo']) ?></b></h4>
+                    <p class='interior'><?= maxLentgh($v['header']) ?>...</p>
                     <p class="cardfoot"><small><?= $v['fecha'] ?></small></p>
                 </div>
             <?php endforeach ?>
@@ -79,6 +87,20 @@ function insertMain($errores)
     </main>
 <?php
 }
+
+function maxLentgh($palabras){
+    $salida = ''; $array = explode(' ', $palabras);
+    foreach($array as $v):
+        if(mb_strlen($v) > 15):
+            $salida .= substr($v, 0, 15);
+            return $salida;
+        else:
+            $salida .= $v .' ';
+        endif;
+    endforeach;
+    return $salida;
+}
+
 
 
 function lista($pdo){

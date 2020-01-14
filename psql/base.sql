@@ -43,5 +43,3 @@ VALUES  ('Trilogía trajano', 'Este post es sobre la trilogía de trajano escrit
 
 INSERT INTO usuarios (nombre, passwd, mail)
 VALUES ('diego', crypt('diego', gen_salt('bf', 12)), 'diegohilderink@gmail.com');
-
-

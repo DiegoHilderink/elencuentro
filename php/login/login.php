@@ -18,10 +18,10 @@ require __DIR__ . "/aux.php";
     <?php
 
     const PAR = [
-        'usuario' => [
+        'nombre' => [
             'def' => '',
             'tipo' => TIPO_CADENA,
-            'etiqueta' => 'Usuario'
+            'etiqueta' => 'Nombre'
         ],
         'passwd' => [
             'def' => '',
@@ -30,17 +30,26 @@ require __DIR__ . "/aux.php";
         ],
     ];
     $errores = [];
-    $args = comprobarParametrosLogin(PAR, $errores);
+    $args = comprobarParametrosnombre(PAR, $errores);
     $pdo = conectar();
-    
+    comprobarValoresnombre($args, $pdo, $errores);
     if(es_POST() && empty($errores)){
-
+         $_SESSION['nombre'] = $args['nombre'];
+         $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+         if (isset($_SESSION['retorno'])) {
+             $retorno = $_SESSION['retorno'];
+             unset($_SESSION['retorno']);
+             header("Location: $retorno");
+             return;
+         }
+         header('Location: /index.php');
+         return;
     }
 
     
     ?>
     <?= navbar() ?>
-    <?= loginForm($errores) ?>
+    <?= nombreForm($errores) ?>
     <?= feet() ?>
 </body>
 
