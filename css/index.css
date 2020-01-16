@@ -1,5 +1,6 @@
 .card {
-    width: 75%;
+    float: left;
+    width: 80%;
 }
 
 .card div {
@@ -35,6 +36,43 @@
 .card #mod{
     margin-top: 7.2%;
 }
+
+#lista{
+    float: right;
+    padding-top: 0.5%;
+}
+
+#lista ul{
+    float: right;
+    list-style: none;
+    border-radius: 4px;
+    background-color: #333;
+    padding: 1em;
+    height: 500px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#lista a{
+    float: right;
+    color: #fff;
+    padding: 0.5em;
+    padding-right: 0;
+    float: left;
+    text-decoration: none;
+}
+
+#lista #votos{
+    border-radius: 4px;
+    background-color: green;
+    color: #fff;
+    margin-left: 1em;
+    padding: 0.5em;
+    float: right;
+}
+
 
 .interior{
     height: 80px;

@@ -18,24 +18,47 @@ require '../aux.php'
     <?php
 
     const PAR = [
-        'usuario' => [
+        'nombre' => [
             'def' => '',
             'tipo' => TIPO_CADENA,
-            'etiqueta' => 'Usuario'
         ],
         'passwd' => [
             'def' => '',
             'tipo' => TIPO_CADENA,
-            'etiqueta' => 'Contraseña'
         ],
+        'mail' => [
+            'def' => '',
+            'tipo' => TIPO_CADENA,
+        ]
     ];
+    $errores = [];
     $pdo = conectar();
+
+    $args = comprobarParametrosNombre(PAR, $errores);
+    comprobarValoresRegistrar($args, $pdo, $errores);
+    if (es_POST() && empty($errores)) {
+        $sent = $pdo->prepare('INSERT INTO usuarios (nombre, passwd, mail)
+        VALUES (:nombre, :passwd, :mail)');
+        if (!$sent->execute([
+                'nombre' => $args['nombre'],
+                'passwd' => password_hash($args['passwd'], PASSWORD_DEFAULT),
+                'mail' => $args['mail'] ?: null,
+        ])) {
+            $errores += ['Ha ocurrido algún problema' => 'error'];
+        } elseif ($sent->rowCount() !== 1) {
+            $errores += ['Ha ocurrido algún problema' => 'error'];
+        }
+
+        header('Location: /index.php');
+        return;
+    }
     ?>
 
     <?= navbar() ?>
-    <?= registry() ?>
+    <?= var_dump($args) ?>
+    <?= registry($errores) ?>
     <?= feet() ?>
-    <script src="./elencuentro/js/login.js"></script>
+    <!-- <script src="./elencuentro/js/login.js"></script> -->
 </body>
 
 </html>

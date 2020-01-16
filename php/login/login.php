@@ -11,6 +11,7 @@ require __DIR__ . "/aux.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?= linkcss() ?>
+    <link rel='stylesheet' href='../css/borrar.css'>
     <title>Document</title>
 </head>
 
@@ -32,7 +33,7 @@ require __DIR__ . "/aux.php";
     $errores = [];
     $args = comprobarParametrosnombre(PAR, $errores);
     $pdo = conectar();
-    comprobarValoresnombre($args, $pdo, $errores);
+    comprobarValoresNombre($args, $pdo, $errores);
     if(es_POST() && empty($errores)){
          $_SESSION['nombre'] = $args['nombre'];
          $_SESSION['token'] = md5(uniqid(mt_rand(), true));

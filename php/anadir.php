@@ -37,13 +37,23 @@ require __DIR__ . "/aux.php";
     navbar();
     $pdo = conectar();
     $errores = [];
+
+    if(!logueado()){
+        $errores += ['Debe estar logueado para crear una nota' => 'warning'];
+        header('location: /index.php');
+        return;
+    }
     
     $args = comprobarParametros(PAR, $errores);
-
+    $sql = 'SELECT id FROM usuarios WHERE nombre = :nombre';
+    $user_id = ejecutarUsuarioConsulta($pdo, $sql,'nombre', logueado());
+    $user_id = $user_id->fetch();
     comprobarValoresInsertar($args, $pdo, $errores);
-    var_dump($_POST);
+    $args += ['user_id' => $user_id['id']];
+    $args += ['fecha' => date('j F Y')];
+
     if (es_POST() && empty($errores)) {
-        $sent = $pdo->prepare("INSERT INTO notas(titulo, header, cuerpo, cat_id, fecha) VALUES (:titulo, :header, :cuerpo, (SELECT id FROM categorias WHERE nombre = :categorias), :fecha)");
+        $sent = $pdo->prepare("INSERT INTO notas(titulo, header, cuerpo, cat_id, user_id, fecha) VALUES (:titulo, :header, :cuerpo, (SELECT id FROM categorias WHERE nombre = :categorias), :user_id, :fecha)");
         $sent->execute($args);
         header('Location: /index.php');
     }

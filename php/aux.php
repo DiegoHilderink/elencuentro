@@ -27,7 +27,9 @@ function navbar()
                 <li class="spec"><a href="/php/login/login.php">Login</a></li>
                 <li class="spec"><a href="/php/login/registry.php">Registry</a></li>
             <?php else: ?>
-                <li class="spec"><a href="/php/login/logout.pbp">Logout</a></li>
+                <li class="spec"><a href="/php/login/logout.php">Logout</a></li>
+                <li class="spec"><a href="/php/usuario/user.php?nombre=<?=logueado()?>" disabled><?= ucwords(logueado())?></a></li>
+                <li class="spec"><a href="/php/anadir.php" >Nueva Nota</a></li>
             <?php endif ?>
         </ul>
     </header>
@@ -36,7 +38,7 @@ function navbar()
 
 function logueado()
 {
-    return isset($_SESSION['login']) ? $_SESSION['login'] : false;
+    return isset($_SESSION['nombre']) ? $_SESSION['nombre'] : false;
 }
 
 function indexMain($sent)
@@ -53,11 +55,7 @@ function indexMain($sent)
                 </div>
             <?php endforeach ?>
 
-            <div id='anadir' onclick="document.location.href='php/anadir.php'">
-                <h4><b>Nueva Nota</b></h4>
-                <p id='img' class="interior">+</p>
-                <p class="cardfoot"><small><?= date('j F Y') ?></small></p>
-            </div>
+            
         </div>
 <?php
 }
@@ -159,12 +157,6 @@ function feet()
 <?php
 }
 
-function ejecutarConsulta($sql, $pdo)
-{
-    $sent = $pdo->query($sql);
-    return $sent;
-}
-
 function comprobarParametros($par, &$errores)
 {
     $res = [];
@@ -185,9 +177,6 @@ function comprobarParametros($par, &$errores)
             $errores += ['Los parametros recibidos son erroneros' => 'error'];
         }
     }
-
-    $res +=  ['fecha' => date('j F Y')];
-    var_dump($res);
     return $res;
 }
 
@@ -270,6 +259,18 @@ function mostrarErrores($errores)
                 <?php
     endforeach;
     }
+}
+
+function ejecutarConsulta($sql, $pdo)
+{
+    $sent = $pdo->query($sql);
+    return $sent;
+}
+
+function ejecutarUsuarioConsulta($pdo, $sql, $k, $v){
+    $sent = $pdo->prepare($sql);
+    $sent->execute([$k => $v]);
+    return $sent;
 }
 
 function conectar()
