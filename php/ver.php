@@ -17,7 +17,7 @@
     <?php
         $pdo = conectar();
         navbar();
-        
+        ver($pdo); 
         feet();
     ?>
 </body>

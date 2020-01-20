@@ -1,17 +1,17 @@
 ESTILOS
 
+-> css ver
 -> css de modificar
 
 PHP
 
+-> Terminar ver.php
 -> Hay que hacer el modificar
--> Hay que hacer el login y registro de usuarios
 -> Hay que mejorar el $errores
--> Añadir orden index lista segun votos
 
 JS
 
 -> Hay que hacer la comprobacion en el cliente de usuarios
--> Hay que hacer la comprobacion de INSERT en el cliente
 -> Hay que hacer la comprobacion en el cliente de registro de usuarios
+-> Hay que hacer la comprobacion de INSERT en el cliente
 

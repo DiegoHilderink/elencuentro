@@ -36,11 +36,6 @@ function navbar()
 <?php
 }
 
-function logueado()
-{
-    return isset($_SESSION['nombre']) ? $_SESSION['nombre'] : false;
-}
-
 function indexMain($sent)
 {
     ?>
@@ -58,6 +53,21 @@ function indexMain($sent)
             
         </div>
 <?php
+}
+
+function ver($pdo){
+    $sql = 'hola';
+    $sent = ejecutarConsulta($sql, $pdo);
+
+    
+    ?> 
+    <main>
+        <section>
+            <h1><?= $sent['titulo'] ?></h1>
+            <h3><?= $sent['cabecera']?></h3>
+        </section>
+    </main> 
+    <?php
 }
 
 function insertMain($errores)
@@ -86,35 +96,16 @@ function insertMain($errores)
 <?php
 }
 
-function maxLentgh($palabras){
-    $salida = ''; $array = explode(' ', $palabras);
-    foreach($array as $v):
-        if(mb_strlen($v) > 15):
-            $salida .= substr($v, 0, 15);
-            return $salida;
-        else:
-            $salida .= $v .' ';
-        endif;
-    endforeach;
-    return $salida;
-}
-
-
-
 function lista($pdo){
-    $par = generateSql($pdo);
+    $sql = 'SELECT n.id, n.titulo, count(v.notas_id) FROM notas n, votos v WHERE v.notas_id=n.id GROUP BY n.id ORDER BY count DESC';
+    $par = ejecutarConsulta($sql, $pdo);
     ?><div id='lista'>
             <ul>
         <?php foreach($par as $k => $v): ?>
-                <li><a href="/php/modificar.php?$id=<?=$v['id']?>"><?=$v['titulo']?></a><label id='votos'>10</label></li>
+                <li><a href="/php/ver.php?$id=<?=$v['id']?>"><?=$v['titulo']?></a><label id='votos'><?= $v['count']?></label></li>
         <?php endforeach ?>
             </ul>
     </div><?php
-}
-
-function generateSql($pdo){
-    $sql = 'SELECT * FROM notas;';
-    return $par = ejecutarConsulta($sql,  $pdo);
 }
 
 function deleteMain($id, $errores, $pdo)
@@ -237,6 +228,19 @@ function comprobarValoresInsertar(&$args, $pdo, &$errores)
     }
 }
 
+function maxLentgh($palabras){
+    $salida = ''; $array = explode(' ', $palabras);
+    foreach($array as $v):
+        if(mb_strlen($v) > 15):
+            $salida .= substr($v, 0, 15);
+            return $salida;
+        else:
+            $salida .= $v .' ';
+        endif;
+    endforeach;
+    return $salida;
+}
+
 function borrar($pdo, $id, &$errores)
 {
     $sql = $pdo->prepare('DELETE FROM notas WHERE id = :id');
@@ -271,6 +275,11 @@ function ejecutarUsuarioConsulta($pdo, $sql, $k, $v){
     $sent = $pdo->prepare($sql);
     $sent->execute([$k => $v]);
     return $sent;
+}
+
+function logueado()
+{
+    return isset($_SESSION['nombre']) ? $_SESSION['nombre'] : false;
 }
 
 function conectar()
